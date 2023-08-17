@@ -7,8 +7,8 @@ public class Passenger {
     private String number;
     private String email;
     private String password;
-    private int paymantMethod;
-/*    private Queue<Ride> rideHistory;*/
+    private int paymentMethod;
+//    private Queue<Ride> rideHistory;
 
     public String getName() {
         return name;
@@ -42,12 +42,12 @@ public class Passenger {
         this.password = password;
     }
 
-    public int getPaymantMethod() {
-        return paymantMethod;
+    public int getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public void setPaymantMethod(int paymantMethod) {
-        this.paymantMethod = paymantMethod;
+    public void setPaymentMethod(int paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
     /*public Queue<Ride> getRideHistory() {
