@@ -58,5 +58,6 @@ public class Passenger {
         this.rideHistory = rideHistory;
     }
 
-
+    public void requestRide(){};
+    public void displayPastRides(){};
 }
