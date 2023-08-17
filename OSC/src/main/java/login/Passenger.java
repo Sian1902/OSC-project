@@ -4,11 +4,11 @@ import java.util.*;
 
 public class Passenger {
     private String name;
-    private long number;
+    private String number;
     private String email;
     private String password;
     private int paymantMethod;
-    private Queue<Ride> rideHistory;
+/*    private Queue<Ride> rideHistory;*/
 
     public String getName() {
         return name;
@@ -18,11 +18,11 @@ public class Passenger {
         this.name = name;
     }
 
-    public long getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(long number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
@@ -50,13 +50,13 @@ public class Passenger {
         this.paymantMethod = paymantMethod;
     }
 
-    public Queue<Ride> getRideHistory() {
+    /*public Queue<Ride> getRideHistory() {
         return rideHistory;
     }
 
     public void setRideHistory(Queue<Ride> rideHistory) {
         this.rideHistory = rideHistory;
-    }
+    }*/
 
     public void requestRide(){};
     public void displayPastRides(){};
