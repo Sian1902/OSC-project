@@ -31,7 +31,7 @@ public class FileWriter {
         String line = bufferedReader.readLine();
 
         // Split the line by the space delimiter
-        String[] data = line.split(" ");
+        String[] data = line.split("CustomerData.txt");
 
         // Declare the string variables
         String phoneNumber = data[0];

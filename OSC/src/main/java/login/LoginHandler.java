@@ -1,13 +1,23 @@
 package login;
 
+import java.io.IOException;
 import java.util.Hashtable;
 
 public class LoginHandler {
-    private static  LoginHandler instance = new LoginHandler();
-    private String customerKey;
-    private Hashtable<String,Passenger> customerMap;
+    private static  LoginHandler instance;
 
-    private LoginHandler(){}
+    static {
+        try {
+            instance = new LoginHandler();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private String customerKey;
+    private Hashtable<String,Passenger> customerMap= new Hashtable<>();
+
+    private LoginHandler() throws IOException {/*FileWriter file=new FileWriter(); customerMap=file.read();*/}
 
 
     public static LoginHandler getInstance() {
@@ -18,6 +28,7 @@ public class LoginHandler {
             String correctPassword=customerMap.get(phoneNumber).getPassword();
             if(correctPassword.equals(password)){
                 customerKey=phoneNumber;
+                System.out.println("logged in");
                 return customerMap.get(phoneNumber);
             }
 
@@ -26,7 +37,11 @@ public class LoginHandler {
         return null;
     }
 public void logOut(){
-        customerKey="";
+    System.out.println(customerKey);
+
+    customerKey="";
+    System.out.println("loged Out");
+
 }
  public void deleteUser(){
         customerMap.remove(customerKey);
@@ -36,6 +51,7 @@ public void logOut(){
             return false;
         }
        customerMap.put(passenger.getNumber(),passenger);
+      System.out.println("registered");
         return true;
   }
 }
