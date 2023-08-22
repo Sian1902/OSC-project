@@ -1,5 +1,7 @@
 package com.example.osc;
 
+import Maps.GoogleMapsAPIHelper;
+import Maps.Location;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -20,16 +22,23 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.show();
     }
+    public static double calculateDistance(Location location1, Location location2) {
+        // Implement distance calculation using the Haversine formula or Google Maps Distance Matrix API
+        // Return the calculated distance
+        return 0;
+    }
+  /*  public static void main(String[] args) {
+        String placeName1 = "Ain Shams University";
+        String placeName2 = "Nasr City";
 
-    public static void main(String[] args) {
-        Passenger passenger= new Passenger();
-        passenger.setName("Ahmed");
-        passenger.setNumber("01122232149");
-        passenger.setEmail("Ahmed@gmail.com");
-        passenger.setPassword("Ahmed_2003");
-        passenger.setPaymentMethod(2000);
-        LoginHandler.getInstance().register(passenger);
-        LoginHandler.getInstance().login("01122232149","Ahmed_2003");
-        LoginHandler.getInstance().logOut();
-        launch();}
+        Location location1 = GoogleMapsAPIHelper.getLocation(placeName1);
+        Location location2 = GoogleMapsAPIHelper.getLocation(placeName2);
+
+        if (location1 != null && location2 != null) {
+            double distance = calculateDistance(location1, location2);
+            System.out.println("Distance between " + placeName1 + " and " + placeName2 + " is: " + distance + " km");
+        } else {
+            System.out.println("Location information not found.");
+        }
+        launch();}*/
 }
