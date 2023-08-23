@@ -6,6 +6,8 @@ package com.example.osc;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import Maps.DistanceCalculator;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -27,8 +29,7 @@ public class HelloController {
 
     @FXML
     void Log(MouseEvent event) {
-        System.out.println(Name.getText());
-        System.out.println(Password.getText());
+        System.out.println(DistanceCalculator.getDistanceCalculator().calculateDistance(Name.getText(),Password.getText()));
 
     }
 

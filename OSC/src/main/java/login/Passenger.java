@@ -1,14 +1,12 @@
 package login;
 import java.util.*;
-
-
+import app.*;
 public class Passenger {
     private String name;
     private String number;
     private String email;
     private String password;
     private int paymentMethod;
-//    private Queue<Ride> rideHistory;
 
     public String getName() {
         return name;
@@ -50,13 +48,7 @@ public class Passenger {
         this.paymentMethod = paymentMethod;
     }
 
-    /*public Queue<Ride> getRideHistory() {
-        return rideHistory;
-    }
 
-    public void setRideHistory(Queue<Ride> rideHistory) {
-        this.rideHistory = rideHistory;
-    }*/
 
     public void requestRide(){};
     public void displayPastRides(){};
