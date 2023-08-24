@@ -68,8 +68,6 @@ public class RegisterController {
         // when screen loads, copy customers into hashtable from file
         try {
             customerMap = file.read();
-
-
         } catch (IOException e) {
             System.out.println(e.getMessage() + ": No Data in file Yet");
         }

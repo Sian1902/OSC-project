@@ -6,6 +6,8 @@ package com.example.osc;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -17,8 +19,13 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import login.FileWriter;
+import login.Passenger;
 
 public class HelloController {
+
+    FileWriter file = new FileWriter();
+    Hashtable <String, Passenger> customerMap = new Hashtable<>();
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -27,7 +34,7 @@ public class HelloController {
     private URL location;
 
     @FXML // fx:id="Name"
-    private TextField Name; // Value injected by FXMLLoader
+    private TextField Email; // Value injected by FXMLLoader
 
     @FXML // fx:id="Password"
     private PasswordField Password; // Value injected by FXMLLoader
@@ -40,15 +47,35 @@ public class HelloController {
         Parent newRoot = FXMLLoader.load(getClass().getResource("register.fxml"));
         signupLink.getScene().setRoot(newRoot);
     }
-    @FXML
-    void Log(MouseEvent event) {
-        System.out.println(DistanceCalculator.getDistanceCalculator().calculateDistance(Name.getText(),Password.getText()));
 
+    private boolean authenticate(String email, String password) throws IOException {
+        customerMap = file.read();
+        Iterator<String> iterator = customerMap.keySet().iterator();
+
+        // Iterate over the hash table and print the values
+        while (iterator.hasNext()) {
+            String key = iterator.next();
+            String value1 = customerMap.get(key).getEmail();
+            String value2 = customerMap.get(key).getPassword();
+            if (value1.equals(email) && value2.equals(password)) {
+                Email.clear();
+                Password.clear();
+                return true;
+            }
+        }
+        return false;
+    }
+    @FXML
+    void Log(MouseEvent event) throws IOException {
+        System.out.println(authenticate(Email.getText(), Password.getText()));
+        if (authenticate(Email.getText(), Password.getText())) {
+            //TODO: Move to next screen
+        }
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-        assert Name != null : "fx:id=\"Name\" was not injected: check your FXML file 'hello-view.fxml'.";
+        assert Email != null : "fx:id=\"Name\" was not injected: check your FXML file 'hello-view.fxml'.";
         assert Password != null : "fx:id=\"Password\" was not injected: check your FXML file 'hello-view.fxml'.";
 
     }
