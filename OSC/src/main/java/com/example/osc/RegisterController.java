@@ -5,7 +5,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import login.FileWriter;
-import login.Passenger;
+import login.*;
 
 import java.io.IOException;
 

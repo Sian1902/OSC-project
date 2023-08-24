@@ -16,7 +16,7 @@ public class DistanceCalculator {
     private DistanceCalculator() {
         geocoder = new JOpenCageGeocoder("36521598748a4f608b11011d60ff444a");
     }
-     public String calculateDistance(String place1Name,String place2Name) {
+     public float calculateDistance(String place1Name,String place2Name) {
 
 
         JOpenCageLatLng place1LatLng = getLatLng(place1Name);
@@ -26,9 +26,9 @@ public class DistanceCalculator {
             double distance = calculateDistance(place1LatLng.getLat(), place1LatLng.getLng(),
                     place2LatLng.getLat(), place2LatLng.getLng());
 
-             return "Distance: " + (int)distance +" km";
+             return  (int)distance ;
         } else {
-            return "Invalid places";
+            return -1;
         }
     }
 

@@ -1,13 +1,11 @@
 package com.example.osc;
 
-/*import Maps.GoogleMapsAPIHelper;
-import Maps.Location;*/
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import login.LoginHandler;
-import login.Passenger;
+import login.*;
 
 import java.io.IOException;
 import java.util.Hashtable;

@@ -6,7 +6,16 @@ public class Passenger {
     private String number;
     private String email;
     private String password;
+    private String city;
     private char paymentMethod;
+     RideManager rideManager= new RideManager();
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 
     public String getName() {
         return name;
@@ -50,6 +59,10 @@ public class Passenger {
 
 
 
-    public void requestRide(){};
-    public void displayPastRides(){};
+    public void requestRide(String start,String destination,String type){
+        rideManager.requestRide(start, destination, type);
+    };
+    public void displayPastRides(){
+        rideManager.getRideQueue();
+    };
 }

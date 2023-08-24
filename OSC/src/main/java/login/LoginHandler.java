@@ -17,8 +17,11 @@ public class LoginHandler {
     private String customerKey;
     private Hashtable<String,Passenger> customerMap= new Hashtable<>();
 
-    private LoginHandler() throws IOException {/*FileWriter file=new FileWriter(); customerMap=file.read();*/}
+    private LoginHandler() throws IOException {}
 
+    public Hashtable<String, Passenger> getCustomerMap() {
+        return customerMap;
+    }
 
     public static LoginHandler getInstance() {
         return instance;

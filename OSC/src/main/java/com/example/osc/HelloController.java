@@ -20,7 +20,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import login.FileWriter;
-import login.Passenger;
+import login.*;
 
 public class HelloController {
 

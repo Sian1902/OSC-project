@@ -1,7 +1,5 @@
 package login;
 
-import javafx.scene.shape.Line;
-
 import java.io.*;
 import java.util.Hashtable;
 
@@ -13,7 +11,7 @@ public class FileWriter {
 
         for (String phonenumber : CustomerMap.keySet()) {
             Passenger passenger = CustomerMap.get(phonenumber);
-            bufferedWriter.write(phonenumber + " " + passenger.getName() + " " + passenger.getEmail() + " " + passenger.getPassword() + " " + passenger.getPaymentMethod() + "\n");
+            bufferedWriter.write(phonenumber + " " + passenger.getName() + " " + passenger.getEmail() + " " + passenger.getPassword() + " " + passenger.getPaymentMethod() + " "+passenger.getCity() + "\n");
         }
 
         bufferedWriter.close();
@@ -43,8 +41,9 @@ public class FileWriter {
             passenger.setPassword(data[3]);
             passenger.setNumber(phoneNumber);
             passenger.setPaymentMethod(data[4].charAt(0));
+            passenger.setCity(data[5]);
             customerMap.put(phoneNumber,passenger);
-            System.out.println(passenger.getNumber() + " " + passenger.getName() + " " + passenger.getEmail() + " " + passenger.getPassword() + " " + passenger.getPaymentMethod());
+            System.out.println(passenger.getNumber() + " " + passenger.getName() + " " + passenger.getEmail() + " " + passenger.getPassword() + " " + passenger.getPaymentMethod()+" "+passenger.getCity());
 
         }
 
