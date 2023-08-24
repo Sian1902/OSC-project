@@ -4,11 +4,16 @@
 
 package com.example.osc;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import Maps.DistanceCalculator;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -27,6 +32,14 @@ public class HelloController {
     @FXML // fx:id="Password"
     private PasswordField Password; // Value injected by FXMLLoader
 
+    @FXML
+    private Hyperlink signupLink;
+
+    @FXML
+    private void goToRegister() throws IOException {
+        Parent newRoot = FXMLLoader.load(getClass().getResource("register.fxml"));
+        signupLink.getScene().setRoot(newRoot);
+    }
     @FXML
     void Log(MouseEvent event) {
         System.out.println(DistanceCalculator.getDistanceCalculator().calculateDistance(Name.getText(),Password.getText()));

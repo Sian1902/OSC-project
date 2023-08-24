@@ -10,13 +10,13 @@ import login.Passenger;
 import java.io.IOException;
 
 import java.util.Hashtable;
+import java.util.Iterator;
 
 
 public class RegisterController {
 
     FileWriter file = new FileWriter();
-    Hashtable <String, Passenger> customerMap;
-
+    static Hashtable <String, Passenger> customerMap = new Hashtable<>();
     @FXML
     private TextField regName;
     @FXML
@@ -60,7 +60,6 @@ public class RegisterController {
         regNumber.clear();
         togglePayment.getToggles().clear();
 
-
     }
 
     @FXML
@@ -69,8 +68,10 @@ public class RegisterController {
         // when screen loads, copy customers into hashtable from file
         try {
             customerMap = file.read();
+
+
         } catch (IOException e) {
-            System.out.println(e + ": No Data in file Yet");
+            System.out.println(e.getMessage() + ": No Data in file Yet");
         }
 
     }

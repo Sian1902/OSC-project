@@ -6,7 +6,7 @@ public class Passenger {
     private String number;
     private String email;
     private String password;
-    private int paymentMethod;
+    private char paymentMethod;
 
     public String getName() {
         return name;
@@ -40,11 +40,11 @@ public class Passenger {
         this.password = password;
     }
 
-    public int getPaymentMethod() {
+    public char getPaymentMethod() {
         return paymentMethod;
     }
 
-    public void setPaymentMethod(int paymentMethod) {
+    public void setPaymentMethod(char paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 
