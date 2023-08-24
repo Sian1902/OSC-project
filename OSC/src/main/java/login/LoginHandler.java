@@ -46,6 +46,9 @@ public void logOut(){
     System.out.println("loged Out");
 
 }
+public Passenger getPassenger(){
+        return customerMap.get(customerKey);
+}
  public void deleteUser(){
         customerMap.remove(customerKey);
   }

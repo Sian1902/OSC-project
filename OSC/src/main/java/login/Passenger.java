@@ -60,7 +60,7 @@ public class Passenger {
 
 
     public void requestRide(String start,String destination,String type){
-        rideManager.requestRide(start, destination, type);
+        System.out.println(rideManager.requestRide(start, destination, type));
     };
     public void displayPastRides(){
         rideManager.getRideQueue();

@@ -39,9 +39,6 @@ public class DistanceCalculator {
 
             if (response != null && response.getFirstPosition() != null) {
                 JOpenCageLatLng latLng = response.getFirstPosition();
-                System.out.println(latLng.getLat());
-                System.out.println(latLng.getLng());
-
                 return latLng;
             }
         } catch (Exception e) {
@@ -66,7 +63,7 @@ public class DistanceCalculator {
         double a = Math.pow(Math.sin(dlat / 2), 2) + Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.pow(Math.sin(dlon / 2), 2);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         double distance = R * c;
-
+        System.out.println(distance);
         return distance;
     }
 

@@ -22,6 +22,18 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
+        Passenger passenger=new Passenger();
+        passenger.setName("Ahmed");
+        passenger.setCity("Cairo");
+        passenger.setEmail("ahmed");
+        passenger.setPaymentMethod('P');
+        passenger.setPassword("Ahmed123");
+        passenger.setNumber("01122232149");
+        LoginHandler.getInstance().register(passenger);
+        LoginHandler.getInstance().login("01122232149","Ahmed123");
+    passenger.requestRide("nasr city","abbaseya","city");
+
+
         launch();
     }
 }
