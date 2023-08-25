@@ -11,7 +11,7 @@ public class FileWriter {
 
         for (String phonenumber : CustomerMap.keySet()) {
             Passenger passenger = CustomerMap.get(phonenumber);
-            bufferedWriter.write(phonenumber + " " + passenger.getName() + " " + passenger.getEmail() + " " + passenger.getPassword() + " " + passenger.getPaymentMethod() + " "+passenger.getCity() + "\n");
+            bufferedWriter.write(phonenumber + " " + passenger.getName() + " " + passenger.getEmail() + " " + passenger.getPassword() + " " + passenger.getPaymentMethod() + " "+passenger.getCity() +"\n");
         }
 
         bufferedWriter.close();

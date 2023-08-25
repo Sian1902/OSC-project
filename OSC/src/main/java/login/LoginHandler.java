@@ -14,6 +14,10 @@ public class LoginHandler {
         }
     }
 
+    public void setCustomerMap(Hashtable<String, Passenger> customerMap) {
+        this.customerMap = customerMap;
+    }
+
     private String customerKey;
     private Hashtable<String,Passenger> customerMap= new Hashtable<>();
 
@@ -49,9 +53,7 @@ public void logOut(){
 public Passenger getPassenger(){
         return customerMap.get(customerKey);
 }
- public void deleteUser(){
-        customerMap.remove(customerKey);
-  }
+ public void deleteUser(){customerMap.remove(customerKey);}
   public boolean register(Passenger passenger){
         if(customerMap.containsKey(passenger.getNumber())){
             return false;

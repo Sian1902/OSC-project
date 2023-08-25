@@ -12,6 +12,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 import Maps.DistanceCalculator;
+import input.check.Regex;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -42,39 +43,40 @@ public class HelloController {
     @FXML
     private Hyperlink signupLink;
 
+    private Regex regex=new Regex();
     @FXML
     private void goToRegister() throws IOException {
         Parent newRoot = FXMLLoader.load(getClass().getResource("register.fxml"));
         signupLink.getScene().setRoot(newRoot);
     }
 
-    private boolean authenticate(String email, String password) throws IOException {
-        customerMap = file.read();
-        Iterator<String> iterator = customerMap.keySet().iterator();
 
-        // Iterate over the hash table and print the values
-        while (iterator.hasNext()) {
-            String key = iterator.next();
-            String value1 = customerMap.get(key).getEmail();
-            String value2 = customerMap.get(key).getPassword();
-            if (value1.equals(email) && value2.equals(password)) {
-                Email.clear();
-                Password.clear();
-                return true;
-            }
-        }
-        return false;
-    }
     @FXML
     void Log(MouseEvent event) throws IOException {
-        System.out.println(authenticate(Email.getText(), Password.getText()));
-        if (authenticate(Email.getText(), Password.getText())) {
+        System.out.println(LoginHandler.getInstance().login(Email.getText(), Password.getText()));
+        if(!regex.phoneRegex(Email.getText())){
+            System.out.println("wrong phone format");
+            return;
+        }
+        if(!regex.passwordRegex(Password.getText())){
+            System.out.println("wrong password format");
+
+            return;
+        }
+        if (LoginHandler.getInstance().login(Email.getText(),Password.getText())!=null) {
             //TODO: Move to next screen
         }
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
+        // when screen loads, copy customers into hashtable from file
+        try {
+            LoginHandler.getInstance().setCustomerMap(file.read());
+        } catch (IOException e) {
+            System.out.println(e.getMessage() + ": No Data in file Yet");
+        }
+
         assert Email != null : "fx:id=\"Name\" was not injected: check your FXML file 'hello-view.fxml'.";
         assert Password != null : "fx:id=\"Password\" was not injected: check your FXML file 'hello-view.fxml'.";
 
