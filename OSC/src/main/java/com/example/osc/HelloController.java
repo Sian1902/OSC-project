@@ -48,29 +48,29 @@ public class HelloController {
         signupLink.getScene().setRoot(newRoot);
     }
 
-    private boolean authenticate(String email, String password) throws IOException {
-        customerMap = file.read();
-        Iterator<String> iterator = customerMap.keySet().iterator();
-
-        // Iterate over the hash table and print the values
-        while (iterator.hasNext()) {
-            String key = iterator.next();
-            String value1 = customerMap.get(key).getEmail();
-            String value2 = customerMap.get(key).getPassword();
-            if (value1.equals(email) && value2.equals(password)) {
-                Email.clear();
-                Password.clear();
-                return true;
-            }
-        }
-        return false;
-    }
+//    private boolean authenticate(String email, String password) throws IOException {
+//        customerMap = file.read();
+//
+//        // Iterate over the hash table and print the values
+//        for (String key : customerMap.keySet()) {
+//            String value1 = customerMap.get(key).getEmail();
+//            String value2 = customerMap.get(key).getPassword();
+//            if (value1.equals(email) && value2.equals(password)) {
+//                Email.clear();
+//                Password.clear();
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
     @FXML
     void Log(MouseEvent event) throws IOException {
-        System.out.println(authenticate(Email.getText(), Password.getText()));
-        if (authenticate(Email.getText(), Password.getText())) {
-            //TODO: Move to next screen
-        }
+        //TODO: Authenticate user
+
+        // Move to destination page
+        Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("choose-locations.fxml")));
+        signupLink.getScene().setRoot(newRoot);
+
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete

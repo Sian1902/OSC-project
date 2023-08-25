@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.osc.ChooseRideController">
+   <children>
+      <Pane layoutX="150.0" layoutY="51.0" prefHeight="140.0" prefWidth="140.0" style="-fx-background-color: #fff;" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="51.0">
+         <children>
+            <ImageView fitHeight="94.0" fitWidth="94.0" layoutX="23.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/car.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="37.0" layoutY="109.0" text="Normal Ride" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Pane>
+      <Pane layoutX="310.0" layoutY="51.0" prefHeight="140.0" prefWidth="140.0" style="-fx-background-color: #fff; -fx-border-radius: 20px;" AnchorPane.rightAnchor="150.0">
+         <children>
+            <ImageView fitHeight="94.0" fitWidth="94.0" layoutX="23.0" layoutY="14.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/sport-car.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="37.0" layoutY="109.0" text="Premium Ride" />
+         </children>
+      </Pane>
+      <Pane layoutX="310.0" layoutY="209.0" prefHeight="140.0" prefWidth="140.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="51.0" AnchorPane.rightAnchor="150.0">
+         <children>
+            <ImageView fitHeight="94.0" fitWidth="94.0" layoutX="23.0" layoutY="14.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/bus.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="47.0" layoutY="108.0" text="City Ride" />
+         </children>
+      </Pane>
+      <Pane layoutX="150.0" layoutY="209.0" prefHeight="140.0" prefWidth="140.0" style="-fx-background-color: #fff; -fx-border-radius: 20px;" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="150.0">
+         <children>
+            <ImageView fitHeight="94.0" fitWidth="94.0" layoutX="23.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/motorcycle%20(1).png" />
+               </image>
+            </ImageView>
+            <Label layoutX="37.0" layoutY="109.0" text="Scooter Ride" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
