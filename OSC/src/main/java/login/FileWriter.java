@@ -1,17 +1,24 @@
 package login;
 
+import app.Ride;
+
 import java.io.*;
 import java.util.Hashtable;
+import java.util.Queue;
 
 public class FileWriter {
     public void write(Hashtable<String,Passenger>CustomerMap)throws IOException {
 
         FileOutputStream fileOutputStream = new FileOutputStream("CustomerData.txt");
         BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(fileOutputStream));
-
+        Passenger passenger;
         for (String phonenumber : CustomerMap.keySet()) {
-            Passenger passenger = CustomerMap.get(phonenumber);
-            bufferedWriter.write(phonenumber + " " + passenger.getName() + " " + passenger.getEmail() + " " + passenger.getPassword() + " " + passenger.getPaymentMethod() + " "+passenger.getCity() +"\n");
+            passenger = CustomerMap.get(phonenumber);
+            bufferedWriter.write(phonenumber + " " + passenger.getName() + " " + passenger.getEmail() + " " + passenger.getPassword() + " " + passenger.getPaymentMethod() + " " + passenger.getCity() +" "+passenger.getRideCount()+ "\n");
+            Queue<Ride> rideQueue= passenger.displayPastRides();
+            for(Ride ride:rideQueue){
+                bufferedWriter.write(ride.getStartPosition().replaceAll(" ","")+" "+ride.getDistenation().replaceAll(" ","")+" "+ride.getPrice()+"\n");
+            }
         }
 
         bufferedWriter.close();
@@ -42,8 +49,18 @@ public class FileWriter {
             passenger.setNumber(phoneNumber);
             passenger.setPaymentMethod(data[4].charAt(0));
             passenger.setCity(data[5]);
+            passenger.setRideCount(Integer.parseInt(data[6]));
             customerMap.put(phoneNumber,passenger);
-            System.out.println(passenger.getNumber() + " " + passenger.getName() + " " + passenger.getEmail() + " " + passenger.getPassword() + " " + passenger.getPaymentMethod()+" "+passenger.getCity());
+            System.out.println(passenger.getNumber() + " " + passenger.getName() + " " + passenger.getEmail() + " " + passenger.getPassword() + " " + passenger.getPaymentMethod()+" "+passenger.getCity()+" "+passenger.getRideCount());
+             if(passenger.getRideCount()>0){
+                 int coutn=passenger.getRideCount();
+                 for(int i=0;i< coutn;i++){
+                     String nextLine=bufferedReader.readLine();
+                     String[] rideData=nextLine.split(" ");
+                     Ride ride=new Ride(rideData[0],rideData[1],Float.parseFloat(rideData[2]));
+                     passenger.addRide(ride);
+                 }
+             }
 
         }
 

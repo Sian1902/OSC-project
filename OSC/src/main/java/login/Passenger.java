@@ -2,6 +2,9 @@ package login;
 
 import app.Ride;
 import app.RideManager;
+
+import java.util.Queue;
+
 public class Passenger {
     private String name;
     private String number;
@@ -66,7 +69,19 @@ public class Passenger {
     public void addRide(Ride ride){
         rideManager.addRide(ride);
     }
-    public void displayPastRides(){
-        rideManager.getRideQueue();
+    public Queue<Ride> displayPastRides(){
+        return rideManager.getRideQueue();
     };
+    public int getRideCount(){
+       return rideManager.getRideCount();
+    }
+    public void setRideCount(int count){
+        rideManager.setRideCount(count);
+    }
 }
+/*
+* for(){
+* Ride = new ride(start,dest,price);
+* passenger.addride(ride)
+*
+* */
