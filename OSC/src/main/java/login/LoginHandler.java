@@ -14,6 +14,10 @@ public class LoginHandler {
         }
     }
 
+    public void setCustomerMap(Hashtable<String, Passenger> customerMap) {
+        this.customerMap = customerMap;
+    }
+
     private String customerKey;
     private Hashtable<String,Passenger> customerMap= new Hashtable<>();
 
@@ -26,18 +30,18 @@ public class LoginHandler {
     public static LoginHandler getInstance() {
         return instance;
     }
-    public Passenger login(String phoneNumber,String password){
+    public boolean login(String phoneNumber,String password){
         if(customerMap.containsKey(phoneNumber)){
             String correctPassword=customerMap.get(phoneNumber).getPassword();
             if(correctPassword.equals(password)){
                 customerKey=phoneNumber;
                 System.out.println("logged in");
-                return customerMap.get(phoneNumber);
+                return true;
             }
 
 
         }
-        return null;
+        return false;
     }
 public void logOut(){
     System.out.println(customerKey);
@@ -49,14 +53,13 @@ public void logOut(){
 public Passenger getPassenger(){
         return customerMap.get(customerKey);
 }
- public void deleteUser(){
-        customerMap.remove(customerKey);
-  }
+ public void deleteUser(){customerMap.remove(customerKey);}
   public boolean register(Passenger passenger){
         if(customerMap.containsKey(passenger.getNumber())){
             return false;
         }
        customerMap.put(passenger.getNumber(),passenger);
+      customerKey=passenger.getNumber();
       System.out.println("registered");
         return true;
   }

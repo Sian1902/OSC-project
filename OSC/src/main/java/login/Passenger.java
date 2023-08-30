@@ -1,6 +1,7 @@
 package login;
-import java.util.*;
-import app.*;
+
+import app.Ride;
+import app.RideManager;
 public class Passenger {
     private String name;
     private String number;
@@ -59,9 +60,12 @@ public class Passenger {
 
 
 
-    public void requestRide(String start,String destination,String type){
-        System.out.println(rideManager.requestRide(start, destination, type));
+    public Ride requestRide(String start,String destination,String type){
+        return rideManager.requestRide(start, destination, type);
     };
+    public void addRide(Ride ride){
+        rideManager.addRide(ride);
+    }
     public void displayPastRides(){
         rideManager.getRideQueue();
     };

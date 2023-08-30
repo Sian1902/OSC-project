@@ -11,7 +11,7 @@ public class RideManager {
        this.rideQueue = new LinkedList<Ride>();
    }
 
-    public String requestRide(String startPosition, String endPosition, String rideType) {
+    public Ride requestRide(String startPosition, String endPosition, String rideType) {
         Ride ride;
         if(rideType.equals("city")==false){
             startPosition+=", "+ LoginHandler.getInstance().getPassenger().getCity();
@@ -23,24 +23,24 @@ public class RideManager {
         }
         switch (rideType) {
             case "normal":
-                ride = new NormalRide(new Ride(startPosition, endPosition));addRide(ride);
-                return "Normal "+ride.getPrice()+" "+ride.getDistance();
+                ride = new NormalRide(new Ride(startPosition, endPosition));
+                return ride;
 
             case "premium":
-                ride = new PremiumRide(new Ride(startPosition, endPosition));addRide(ride);
-                return "premium "+ride.getPrice()+" "+ride.getDistance();
+                ride = new PremiumRide(new Ride(startPosition, endPosition));
+                return ride;
 
             case "scooter":
-                ride = new ScooterRide(new Ride(startPosition, endPosition));addRide(ride);
-                return "sccooter "+ride.getPrice()+" "+ride.getDistance();
+                ride = new ScooterRide(new Ride(startPosition, endPosition));
+                return ride;
 
-            case "city":
-                ride = new RideBetweenCities(new Ride(startPosition, endPosition));addRide(ride);
-                return "city "+ride.getPrice()+" "+ride.getDistance();
+            case "between cities":
+                ride = new RideBetweenCities(new Ride(startPosition, endPosition));
+                return ride;
 
 
         }
-        return "request Failed";
+        return null;
     }
 
     public Queue<Ride> getRideQueue() {
