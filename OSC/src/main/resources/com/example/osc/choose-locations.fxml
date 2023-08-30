@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.osc.ChooseLocationsController">
+<AnchorPane mouseTransparent="true" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.osc.ChooseLocationsController">
    <children>
       <HBox layoutX="-2.0" prefHeight="34.0" prefWidth="600.0" spacing="520.0" style="-fx-background-color: #ccc;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -61,7 +61,7 @@
             <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" style="-fx-background-color: null; -fx-border-color: #555; -fx-border-width: 0.5px;" text="Cancel" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutY="201.0" prefHeight="100.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <HBox alignment="CENTER" layoutY="201.0" prefHeight="100.0" prefWidth="600.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <VBox alignment="CENTER" prefHeight="100.0" prefWidth="170.0">
                <children>
@@ -70,7 +70,7 @@
                         <Font name="System Bold" size="21.0" />
                      </font>
                   </Label>
-                  <HBox alignment="BASELINE_CENTER" prefHeight="40.0" prefWidth="145.0">
+                  <HBox fx:id="costCalc" alignment="BASELINE_CENTER" prefHeight="40.0" prefWidth="145.0">
                      <children>
                         <Label fx:id="lblCost" alignment="CENTER_RIGHT" prefHeight="40.0" HBox.hgrow="ALWAYS">
                            <font>
@@ -84,6 +84,59 @@
                         </Label>
                      </children>
                   </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutY="251.0" prefHeight="26.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Button fx:id="pickMe" mnemonicParsing="false" onMouseClicked="#pickMeUp" style="-fx-background-color: #555; -fx-cursor: hand;" text="Choose Ride" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <HBox fx:id="ridesBox" alignment="CENTER" layoutX="10.0" layoutY="210.0" prefHeight="67.0" prefWidth="600.0" spacing="20.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <VBox alignment="CENTER" onMouseClicked="#calcCost" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #fff; -fx-cursor: hand;">
+               <children>
+                  <ImageView disable="true" fitHeight="80.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/motorcycle%20(1).png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Scooter Ride" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="110.0" prefWidth="100.0" style="-fx-background-color: #fff; -fx-cursor: hand;">
+               <children>
+                  <ImageView fitHeight="80.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/car.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Normal Ride" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #fff; -fx-cursor: hand;">
+               <children>
+                  <ImageView fitHeight="80.0" fitWidth="94.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/sport-car.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Premium Ride" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #fff; -fx-cursor: hand;">
+               <children>
+                  <ImageView fitHeight="80.0" fitWidth="94.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/bus.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="City Ride" />
                </children>
             </VBox>
          </children>
