@@ -6,10 +6,15 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class RideManager {
+    int rideCount;
    Queue<Ride>rideQueue;
    public RideManager() {
        this.rideQueue = new LinkedList<Ride>();
    }
+
+    public void setRideCount(int rideCount) {
+        this.rideCount = rideCount;
+    }
 
     public Ride requestRide(String startPosition, String endPosition, String rideType) {
         Ride ride;
@@ -43,10 +48,15 @@ public class RideManager {
         return null;
     }
 
+    public int getRideCount() {
+        return rideCount;
+    }
+
     public Queue<Ride> getRideQueue() {
         return rideQueue;
     }
     public void addRide(Ride ride){
        rideQueue.add(ride);
+       rideCount=rideQueue.size();
     }
 }

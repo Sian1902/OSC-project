@@ -14,6 +14,12 @@ public class Ride {
         this.distance=DistanceCalculator.getDistanceCalculator().calculateDistance(startPosition,distenation);
     }
 
+    public Ride(String startPosition, String distenation, float price) {
+        this.startPosition = startPosition;
+        this.distenation = distenation;
+        this.price = price;
+    }
+
     public String getDistenation() {
         return distenation;
     }
@@ -27,6 +33,6 @@ public class Ride {
     }
 
     public float getPrice() {
-        return distance*price;
+        return price;
     }
 }
