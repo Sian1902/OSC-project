@@ -7,6 +7,7 @@ public class PremiumRide extends RideDecorator{
 
     @Override
     public float getPrice() {
-     return 2.5f*distance;
+        price=2.5f*distance;
+        return price;
     }
 }

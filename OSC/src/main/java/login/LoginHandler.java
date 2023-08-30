@@ -30,18 +30,18 @@ public class LoginHandler {
     public static LoginHandler getInstance() {
         return instance;
     }
-    public Passenger login(String phoneNumber,String password){
+    public boolean login(String phoneNumber,String password){
         if(customerMap.containsKey(phoneNumber)){
             String correctPassword=customerMap.get(phoneNumber).getPassword();
             if(correctPassword.equals(password)){
                 customerKey=phoneNumber;
                 System.out.println("logged in");
-                return customerMap.get(phoneNumber);
+                return true;
             }
 
 
         }
-        return null;
+        return false;
     }
 public void logOut(){
     System.out.println(customerKey);
@@ -59,6 +59,7 @@ public Passenger getPassenger(){
             return false;
         }
        customerMap.put(passenger.getNumber(),passenger);
+      customerKey=passenger.getNumber();
       System.out.println("registered");
         return true;
   }

@@ -7,6 +7,7 @@ public class NormalRide extends RideDecorator{
 
     @Override
     public float getPrice() {
-       return 2*distance;
+        price=2*distance;
+       return price;
     }
 }
