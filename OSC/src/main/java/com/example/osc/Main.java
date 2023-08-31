@@ -23,6 +23,7 @@ import login.LoginHandler;
 import login.Passenger;
 
 import java.io.IOException;
+import java.time.LocalTime;
 
 public class Main extends Application {
     Log_Reg logReg=new Log_Reg();
@@ -33,6 +34,11 @@ public class Main extends Application {
     Pane splashPane,uber;
     private Scene uberScene;
     Passenger passenger;
+
+    public Passenger getPassenger() {
+        return passenger;
+    }
+
     @Override
     public void start(Stage uberStage){
 
@@ -182,6 +188,10 @@ public class Main extends Application {
             else {
                 LoginHandler.getInstance().login(logReg.phoneNumberLog.getText(),logReg.passwordLog.getText());
                 showPane(false, false, false, true);
+
+                // Adds username to profile button in the navbar
+                rideReguest.userDropList.setText(LoginHandler.getInstance().getPassenger().getName());
+
                 uberLabel.setStyle("-fx-background-color: white;" +
                         "-fx-border-color: transparent transparent #e2e2e2 transparent; " +
                         "-fx-text-fill: Black; " +
@@ -236,7 +246,7 @@ public class Main extends Application {
                         "-fx-border-width: 3; " +
                         "-fx-font-size: 40px;");
                 passenger=LoginHandler.getInstance().getPassenger();
-                initialize();
+//                initialize();
             }
         });
     }
@@ -420,6 +430,7 @@ public class Main extends Application {
         logReg.signUpInLog.setLayoutY(420);
         logReg.enterDataLog.setVisible(true);
     }
+
     private String checkRegex(String phone,String mail,String password){
         Regex regex=new Regex();
         if(!regex.phoneRegex(phone)){
@@ -438,7 +449,6 @@ public class Main extends Application {
 
     }
     private void initialize(){
-
         generalOptions.nameEdit.setText(passenger.getName());
         generalOptions.mailEdit.setText(passenger.getEmail());
         generalOptions.numberEdit.setText(passenger.getNumber());
