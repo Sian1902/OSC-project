@@ -33,6 +33,7 @@ public class Main extends Application {
     Pane splashPane,uber;
     private Scene uberScene;
     Passenger passenger;
+    private boolean flag[];
     @Override
     public void start(Stage uberStage){
 
@@ -108,8 +109,8 @@ public class Main extends Application {
     }
     void showPane(boolean showStart,boolean showLogIn,boolean showSignUp,boolean showRideRequest) {
         startPage.startPane.setVisible(showStart);
-        logReg. logInPane.setVisible(showLogIn);
-        logReg. signUpPane.setVisible(showSignUp);
+        logReg.logInPane.setVisible(showLogIn);
+        logReg.signUpPane.setVisible(showSignUp);
         rideReguest.ridePane.setVisible(showRideRequest);
 
         logReg.ifPhrase.setLayoutY(395);
@@ -118,6 +119,7 @@ public class Main extends Application {
         logReg.enterDataReg.setVisible(false);
         rideReguest.enterDataRide.setVisible(false);
         rideReguest.list.setVisible(false);
+        generalOptions.savingStatus.setVisible(false);
 
         startPage.pickUpLoc.clear();
         startPage.destination.clear();
@@ -138,8 +140,8 @@ public class Main extends Application {
         generalOptions.numberEdit.setEditable(false);
         generalOptions.passwordEdit.setEditable(false);
         generalOptions.cityEdit.setEditable(false);
+        generalOptions.cityEdit.disableProperty().setValue(true);
         generalOptions.paymentMethodEdit.disableProperty().setValue(true);
-        generalOptions.saveEdit.disableProperty().setValue(false);
 
         uberLabel.setStyle("-fx-background-color: black;" +
                 "-fx-text-fill: white; " +
@@ -356,7 +358,6 @@ public class Main extends Application {
     }
     private void generalOptionsConnection(){
 
-
         generalOptions.logOut.setOnAction(event->{
             showPane(true,false,false,false);
             showPane2(false,false,false,false);
@@ -370,23 +371,17 @@ public class Main extends Application {
             showPane2(false,false,false,false);
         });
         generalOptions.sendFeedback.setOnAction(event->{
-            // Take Text
-            // textarea named "feedbackText"
             SupportTickets supportTicket=new SupportTickets(generalOptions.feedbackText.getText());
-
         });
         generalOptions.editData.setOnAction(event->{
-            generalOptions.nameEdit.setEditable(true);
-            generalOptions.mailEdit.setEditable(true);
-           // generalOptions.numberEdit.setEditable(true);
-            generalOptions.passwordEdit.setEditable(true);
-            generalOptions.cityEdit.setEditable(true);
-            generalOptions.paymentMethodEdit.disableProperty().setValue(false);
-            generalOptions.saveEdit.disableProperty().setValue(false);
+            generalOptions.openEnteringPasswordWindow();
         });
+        boolean[] flag = new boolean[2];
         generalOptions.saveEdit.setOnAction(event->{
+
             if(generalOptions.nameEdit.getText().isEmpty()){
                 generalOptions.nameEdit.setText(passenger.getName());
+                flag[0]=false;
             }
             else {
                 passenger.setName(generalOptions.nameEdit.getText());
@@ -404,13 +399,20 @@ public class Main extends Application {
                 passenger.setPassword(generalOptions.passwordEdit.getText());
             }
             else{
-                //add label that displays the return value of checkregex function
+                generalOptions.savingStatus.setText(checkRegex(generalOptions.numberEdit.getText(),generalOptions.mailEdit.getText()
+                        ,generalOptions.passwordEdit.getText()));
+                generalOptions.savingStatus.setVisible(true);
+                flag[1]=false;
+
+            }
+            if(!(flag[0]&&flag[1])){
+                generalOptions.savingStatus.setVisible(true);
             }
             generalOptions.nameEdit.setEditable(false);
             generalOptions.mailEdit.setEditable(false);
-            // generalOptions.numberEdit.setEditable(true);
             generalOptions.passwordEdit.setEditable(false);
             generalOptions.cityEdit.setEditable(false);
+            generalOptions.cityEdit.disableProperty().setValue(true);
             generalOptions.paymentMethodEdit.disableProperty().setValue(true);
             generalOptions.saveEdit.disableProperty().setValue(true);
         });
@@ -424,16 +426,13 @@ public class Main extends Application {
         Regex regex=new Regex();
         if(!regex.phoneRegex(phone)){
             return "Must use egyptian phone number";
-
         }
         if(!regex.emailRegex(mail)){
             return "Unrecognized mail format";
         }
         if(!regex.passwordRegex(password)){
            return  "Weak password";
-
         }
-
         return "all good";
 
     }

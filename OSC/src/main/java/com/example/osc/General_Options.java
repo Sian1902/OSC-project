@@ -16,8 +16,9 @@ import javafx.stage.StageStyle;
 import login.LoginHandler;
 
 public class General_Options {
+    LoginHandler loginHandler;
     private Label myTripLabel,noTripLabel,authorizedLabel,location,language,egypt,english,warningLabel,warningDescription;
-    Label enterPassword;
+    Label enterPassword,savingStatus;
     TextField nameEdit,mailEdit,numberEdit;
     TextArea feedbackText;
     PasswordField passwordEdit,currentPassword;
@@ -425,11 +426,19 @@ public class General_Options {
                     "-fx-background-radius: 50px;" +
                     "-fx-font-size: 18px;");
         });
-
+        savingStatus=new Label();
+        savingStatus.setText("Data saved successfully");
+        savingStatus.setLayoutX(280);
+        savingStatus.setLayoutY(690);
+        savingStatus.setPrefHeight(55);
+        savingStatus.setPrefWidth(370);
+        savingStatus.setStyle("-fx-background-color: transparent;" +
+                "-fx-font-size: 20px;" +
+                "-fx-text-fill: red;");
 
         manageAccountPane=new Pane();
         manageAccountPane.getChildren().addAll(rideNow2,myTrips2,manageAccount2,profileSettings2,userView,nameEdit,
-                mailEdit,numberEdit,passwordEdit,paymentMethodEdit,cityEdit,editData,saveEdit);
+                mailEdit,numberEdit,passwordEdit,paymentMethodEdit,cityEdit,editData,saveEdit,savingStatus);
         return manageAccountPane;
     }
     Pane getProfileSettingsPane(){
@@ -633,10 +642,10 @@ public class General_Options {
         warningDescription=new Label();
         warningDescription.setText("You will not be able to recover your account.\n"+
                 "Are you sure you want to delete your account?");
-        warningDescription.setPadding(new Insets(0, 30, 0, 30));
+        warningDescription.setPadding(new Insets(0, 40, 0, 40));
         warningDescription.setWrapText(true);
         warningDescription.setPrefWidth(500);
-        warningDescription.setPrefHeight(300);
+        warningDescription.setPrefHeight(250);
         warningDescription.setLayoutX(0);
         warningDescription.setLayoutY(0);
         warningDescription.setStyle("-fx-font-size: 20px;");
@@ -652,7 +661,7 @@ public class General_Options {
         yesDeleteButton.setPrefWidth(180);
         yesDeleteButton.setPrefHeight(40);
         yesDeleteButton.setLayoutX(50);
-        yesDeleteButton.setLayoutY(230);
+        yesDeleteButton.setLayoutY(180);
         yesDeleteButton.setStyle("-fx-background-color: black;"+
                 "-fx-text-fill: white;"+
                 "-fx-font-size: 20px;"+
@@ -679,7 +688,7 @@ public class General_Options {
         cancelDeletion.setPrefWidth(180);
         cancelDeletion.setPrefHeight(40);
         cancelDeletion.setLayoutX(250);
-        cancelDeletion.setLayoutY(230);
+        cancelDeletion.setLayoutY(180);
         cancelDeletion.setStyle("-fx-background-color: black;"+
                 "-fx-text-fill: white;"+
                 "-fx-font-size: 20px;"+
@@ -883,14 +892,20 @@ public class General_Options {
         editContinue.setOnAction(event->{
             if(currentPassword.getText().isEmpty()){
                 enterPassword.setStyle("-fx-font-size: 30px;-fx-text-fill: red;");
-            }else{
+                enterPassword.setText("Enter your password!");
+                enterPassword.setPadding(new Insets(0, 0, 150, 90));
+            } else if (!LoginHandler.getInstance().getPassenger().getPassword().equals(currentPassword.getText())) {
+                enterPassword.setText("Wrong Password!");
+                enterPassword.setPadding(new Insets(0, 0, 150, 130));
+                enterPassword.setStyle("-fx-font-size: 30px;-fx-text-fill: red;");
+            } else{
                 nameEdit.setEditable(true);
                 mailEdit.setEditable(true);
-                numberEdit.setEditable(true);
                 passwordEdit.setEditable(true);
                 paymentMethodEdit.disableProperty().setValue(false);
                 cityEdit.disableProperty().setValue(false);
                 saveEdit.disableProperty().setValue(false);
+                enterPassStage.close();
                 // code
             }
         });

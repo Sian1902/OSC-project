@@ -29,15 +29,7 @@ public class Ride_Reguest {
     ListView<Button> list;
     ComboBox<String> rideType;
     Pane getRequestRidePane(){
- /*       ComboBox<String> rideType = new ComboBox<>();
-        rideType.getItems().addAll("Normal", "Premium", "Scooter", "Between Cities");
-        rideType.setValue("Normal"); // Set default value
-        rideType.setLayoutX(70);
-        rideType.setLayoutY(380);
-        rideType.setPrefWidth(350);
-        rideType.setStyle("-fx-font-size: 20px;");
 
-        ridePane.getChildren().add(rideType);*/
         requestLabel=new Label();
         requestLabel.setText("Get a ride");
         requestLabel.setLayoutX(50);
@@ -234,6 +226,7 @@ public class Ride_Reguest {
         rideType.setLayoutX(70);
         rideType.setLayoutY(320);
         rideType.setPrefWidth(350);
+        rideType.setPrefHeight(50);
         rideType.setStyle("-fx-font-size: 20px;" +
                 "-fx-background-color: #eeeeee;" +
                 "-fx-text-fill: black;" +
