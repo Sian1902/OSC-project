@@ -23,7 +23,6 @@ import login.LoginHandler;
 import login.Passenger;
 
 import java.io.IOException;
-import java.time.LocalTime;
 
 public class Main extends Application {
     Log_Reg logReg=new Log_Reg();
@@ -118,8 +117,8 @@ public class Main extends Application {
         logReg. signUpPane.setVisible(showSignUp);
         rideReguest.ridePane.setVisible(showRideRequest);
 
-        logReg.ifPhrase.setLayoutY(395);
-        logReg.signUpInLog.setLayoutY(395);
+        logReg.ifPhrase.setLayoutY(420);
+        logReg.signUpInLog.setLayoutY(420);
         logReg.enterDataLog.setVisible(false);
         logReg.enterDataReg.setVisible(false);
         rideReguest.enterDataRide.setVisible(false);
@@ -177,13 +176,21 @@ public class Main extends Application {
     private void logRegConnection(){
         // Ride Request Page
         logReg.continueButton.setOnAction(event->{
+            FadeTransition ft = new FadeTransition(Duration.millis(2000), logReg.enterDataLog);
+            ft.setFromValue(1.0);
+            ft.setToValue(0.0);
+
             if (logReg.phoneNumberLog.getText().isEmpty() || logReg.passwordLog.getText().isEmpty()) {
                 logReg.enterDataLog.setText("Please fill in all required data");
                 showWarning();
+                ft.play();
+
+
             }
             else if(!LoginHandler.getInstance().login(logReg.phoneNumberLog.getText(),logReg.passwordLog.getText())){
                 logReg.enterDataLog.setText("Incorrect Phone number or password");
                 showWarning();
+                ft.play();
             }
             else {
                 LoginHandler.getInstance().login(logReg.phoneNumberLog.getText(),logReg.passwordLog.getText());
@@ -197,13 +204,20 @@ public class Main extends Application {
                         "-fx-text-fill: Black; " +
                         "-fx-border-width: 3; " +
                         "-fx-font-size: 40px;");
+                passenger=LoginHandler.getInstance().getPassenger();
+                initialize();
             }
-            passenger=LoginHandler.getInstance().getPassenger();
-            initialize();
+
+
 
         });
         logReg.registerButton.setOnAction(event->{
             Passenger temp=new Passenger();
+
+            FadeTransition ft = new FadeTransition(Duration.millis(2000), logReg.enterDataReg);
+            ft.setFromValue(1.0);
+            ft.setToValue(0.0);
+
             if (logReg.regNumber.getText().isEmpty() ||
                     logReg.regPassword.getText().isEmpty()||
                     logReg.regName.getText().isEmpty()||
@@ -213,11 +227,12 @@ public class Main extends Application {
                     !logReg.agreement.isSelected()) {
                 logReg.enterDataLog.setText("Please enter fill all required fields");
                 logReg.enterDataReg.setVisible(true);
+                ft.play();
             }
             else if(!checkRegex(logReg.regNumber.getText(),logReg.regMail.getText(),logReg.regPassword.getText()).equals("all good")){
                 logReg.enterDataReg.setText(checkRegex(logReg.regNumber.getText(),logReg.regMail.getText(),logReg.regPassword.getText()));
-
                 logReg.enterDataReg.setVisible(true);
+                ft.play();
             }
 
             else{
@@ -236,6 +251,7 @@ public class Main extends Application {
             if(!LoginHandler.getInstance().register(temp)){
                 logReg.enterDataReg.setText("Phone number in use");
                 logReg.enterDataReg.setVisible(true);
+                ft.play();
             }
 
             else {
@@ -252,9 +268,15 @@ public class Main extends Application {
     }
     private void rideRequestPageConnection(){
         rideReguest.search.setOnAction(event->{
+
+            FadeTransition ft = new FadeTransition(Duration.millis(2000), rideReguest.enterDataRide);
+            ft.setFromValue(1.0);
+            ft.setToValue(0.0);
+
             if (rideReguest.pickupRide.getText().isEmpty() || rideReguest.destinationRide.getText().isEmpty()) {
                 rideReguest.enterDataRide.setText("Please fill in all required data");
                 rideReguest.enterDataRide.setVisible(true);
+                ft.play();
             } else {
 
                 Ride ride=passenger.requestRide(rideReguest.pickupRide.getText().toLowerCase(),
@@ -262,6 +284,7 @@ public class Main extends Application {
                 if(ride.getDistance()<=0){
                     rideReguest.enterDataRide.setText("Write places with correct spelling");
                     rideReguest.enterDataRide.setVisible(true);
+                    ft.play();
                 }
                 else
                 {
@@ -430,6 +453,8 @@ public class Main extends Application {
         logReg.signUpInLog.setLayoutY(420);
         logReg.enterDataLog.setVisible(true);
     }
+
+
 
     private String checkRegex(String phone,String mail,String password){
         Regex regex=new Regex();
