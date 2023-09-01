@@ -197,4 +197,3 @@ public class StartPage {
         return startPane;
     }
 }
-

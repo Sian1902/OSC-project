@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import login.LoginHandler;
 
+import java.util.Random;
+
 public class Ride_Reguest {
 
     private Label requestLabel,enjoyLabel,carTypeLabel,distanceLabel,priceLabel;
@@ -28,6 +30,8 @@ public class Ride_Reguest {
     private Stage rideDetailsStage;
     ListView<Button> list;
     ComboBox<String> rideType;
+    Random random;
+    int randomCar;
     Pane getRequestRidePane(){
 
         requestLabel=new Label();
@@ -240,7 +244,7 @@ public class Ride_Reguest {
 
         return ridePane;
     }
-    void openRideDetailsWindow(Ride ride){
+    void openRideDetailsWindow(Ride ride,int carOrScooter){
         enjoyLabel=new Label();
         enjoyLabel.setText("Enjoy your ride!");
         enjoyLabel.setPadding(new Insets(0, 0, 200, -40));
@@ -251,7 +255,6 @@ public class Ride_Reguest {
                 "-fx-font-weight: bold;");
 
         carTypeLabel=new Label();
-        carTypeLabel.setText("Car type:");
         carTypeLabel.setStyle("-fx-font-size:20px;");
         carTypeLabel.setLayoutX(40);
         carTypeLabel.setLayoutY(100);
@@ -270,10 +273,60 @@ public class Ride_Reguest {
         priceLabel.setLayoutY(170);
         priceLabel.setStyle("-fx-font-size: 20px;");
 
-        car=new Image(getClass().getResourceAsStream("/media/car.jpg"));
-        carView=new ImageView(car);
-        carView.setLayoutY(110);
-        carView.setLayoutX(410);
+        random=new Random();
+        if(carOrScooter==1){
+            randomCar = random.nextInt(4) + 1;
+            switch (randomCar){
+                case 1:
+                    car=new Image(getClass().getResourceAsStream("/media/car.png"));
+                    carTypeLabel.setText("Car type: Toyota Corolla");
+                    carView=new ImageView(car);
+                    carView.setLayoutX(310);
+                    carView.setLayoutY(80);
+                    break;
+                case 2:
+                    car=new Image(getClass().getResourceAsStream("/media/car2.png"));
+                    carTypeLabel.setText("Car type: Nissan Sunny");
+                    carView=new ImageView(car);
+                    carView.setLayoutX(310);
+                    carView.setLayoutY(80);
+                    break;
+                case 3:
+                    car=new Image(getClass().getResourceAsStream("/media/car3.png"));
+                    carTypeLabel.setText("Car type: Hyundai Elantra");
+                    carView=new ImageView(car);
+                    carView.setLayoutX(310);
+                    carView.setLayoutY(65);
+                    break;
+                case 4:
+                    car=new Image(getClass().getResourceAsStream("/media/car4.png"));
+                    carTypeLabel.setText("Car type: Opel Vectra");
+                    carView=new ImageView(car);
+                    carView.setLayoutX(310);
+                    carView.setLayoutY(20);
+                    break;
+            }
+        }
+        else{
+            randomCar = random.nextInt(4) + 1;
+            switch (randomCar){
+                case 1:
+                    car=new Image(getClass().getResourceAsStream("/media/scooter.png"));
+                    carTypeLabel.setText("Vehicle type: Scooter");
+                    carView=new ImageView(car);
+                    carView.setLayoutX(350);
+                    carView.setLayoutY(80);
+                    break;
+                case 2:
+                    car=new Image(getClass().getResourceAsStream("/media/scooter2.png"));
+                    carTypeLabel.setText("Vehicle type: Scooter");
+                    carView=new ImageView(car);
+                    carView.setLayoutX(350);
+                    carView.setLayoutY(80);
+                    break;
+            }
+        }
+
 
 
         acceptButton=new Button();

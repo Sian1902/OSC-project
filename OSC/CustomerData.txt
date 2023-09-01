@@ -1,1 +1,8 @@
-01123232323 ahmed haitham@gmail Ahmed@1234 c cairo 0
+01123232323 ahmed haitham@gmail.com Ahmed@123 c cairo 7
+nasrcity,cairo makramebeid,cairo 26.0
+nasrcity,cairo makramebeid,cairo 26.0
+nasrcity,cairo tahrirsquare,cairo 20.0
+nasrcity,cairo tahrirsquare,cairo 15.0
+nasrcity,cairo tahrirsquare,cairo 25.0
+cairo,cairo alex,cairo 52.0
+cairo,cairo alexandria,cairo 676.0

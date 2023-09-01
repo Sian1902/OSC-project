@@ -1,5 +1,6 @@
 package com.example.osc;
 
+import app.Ride;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -10,15 +11,20 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import login.LoginHandler;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 public class General_Options {
-    LoginHandler loginHandler;
     private Label myTripLabel,noTripLabel,authorizedLabel,location,language,egypt,english,warningLabel,warningDescription;
-    Label enterPassword,savingStatus;
+    Label enterPassword,savingStatus,tripLabel;
     TextField nameEdit,mailEdit,numberEdit;
     TextArea feedbackText;
     PasswordField passwordEdit,currentPassword;
@@ -30,8 +36,12 @@ public class General_Options {
     private ImageView feedbackIconView,userView;
     ComboBox<String> paymentMethodEdit,cityEdit;
     Pane  myTripsPane,manageAccountPane,profileSettingsPane,feedbackPane,deleteWarningPane,enterPassPane;
+    VBox tripLabelContainer;
+    ScrollPane scrollPane;
     private Scene deleteWarningScene,enterPassScene;
     private Stage deleteWarningStage,enterPassStage;
+    List<Label>labelTrip;
+    int rideCounter;
     Pane getFeedbackPane(){
         feedbackIcon=new Image(getClass().getResourceAsStream("/media/feedbackicon.jpg"));
         feedbackIconView=new ImageView(feedbackIcon);
@@ -185,7 +195,20 @@ public class General_Options {
         myTripLabel.setStyle("-fx-background-color: transparent;"+
                 "-fx-font-size: 25px;" +
                 "-fx-font-weight: bold;");
-        if(true){
+
+        myTripsPane=new Pane();
+        myTripsPane.getChildren().addAll(rideNow,myTrips,manageAccount,profileSettings);
+        return myTripsPane;
+    }
+    public void tripsLabels(Queue<Ride>trip){
+        Queue<Ride>trips=new LinkedList<Ride>();
+        trips.addAll(trip);
+        labelTrip = new ArrayList<>();
+        scrollPane = new ScrollPane();
+        tripLabelContainer=new VBox();
+        rideCounter=trips.size();
+        if(rideCounter==0){
+            scrollPane.setVisible(false);
             noTripLabel=new Label();
             noTripLabel.setText("Looks like you haven't taken a trip yet.");
             noTripLabel.setLayoutX(380);
@@ -193,13 +216,41 @@ public class General_Options {
             noTripLabel.setStyle("-fx-background-color: transparent;"+
                     "-fx-font-size: 25px;" +
                     "-fx-font-weight: bold;");
+            myTripsPane.getChildren().add(noTripLabel);
         }
         else{
-            // Trips code Here
+            tripLabelContainer.setSpacing(10);
+            ScrollPane scrollPane = new ScrollPane();
+            scrollPane.setContent(tripLabelContainer);
+            scrollPane.setPrefWidth(1250);
+            scrollPane.setPrefHeight(610);
+            scrollPane.setLayoutX(280);
+            scrollPane.setLayoutY(180);
+            scrollPane.setStyle("-fx-base:white;-fx-background-color:white;");
+            scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+            scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+            for (int i = 0 ; i < rideCounter ; i++) {
+                tripLabel=new Label();
+                //tripLabel.setPrefHeight(50);
+                tripLabel.setWrapText(true);
+                tripLabel.setPadding(new Insets(0, 0, 0, 30));
+                tripLabel.setPrefWidth(600);
+                tripLabel.setStyle("-fx-background-color: #eeeeee;"+
+                        "-fx-font-size: 25px;" +
+                        "-fx-background-radius: 20px;" +
+                        "-fx-border-radius: 20px;");
+                tripLabel.setText("Start position: "+trips.peek().getStartPosition()+"\nDestination: "+trips.peek().getDistenation()+"\nPrice:"+trips.peek().getPrice()+" EGP");
+                labelTrip.add(tripLabel);
+                trips.remove();
+            }
+            for (Label label : labelTrip) {
+                tripLabelContainer.getChildren().add(label);
+            }
+            myTripsPane.getChildren().add(scrollPane);
         }
-        myTripsPane=new Pane();
-        myTripsPane.getChildren().addAll(rideNow,myTrips,manageAccount,profileSettings,myTripLabel,noTripLabel);
-        return myTripsPane;
+
+        myTripsPane.getChildren().add(myTripLabel);
     }
     Pane getManageAccountPane(){
 
@@ -427,7 +478,6 @@ public class General_Options {
                     "-fx-font-size: 18px;");
         });
         savingStatus=new Label();
-        savingStatus.setText("Data saved successfully");
         savingStatus.setLayoutX(280);
         savingStatus.setLayoutY(690);
         savingStatus.setPrefHeight(55);
@@ -743,15 +793,15 @@ public class General_Options {
         yesDeleteButton.setOnAction(new EventHandler<ActionEvent>() {
 
 
-            @Override
-            public void handle(ActionEvent event) {
-                deleteWarningStage.close();
-                yesDeleteCheckbox.setSelected(true);
-                LoginHandler.getInstance().deleteUser();
+                                        @Override
+                                        public void handle(ActionEvent event) {
+                                            deleteWarningStage.close();
+                                            yesDeleteCheckbox.setSelected(true);
+                                            LoginHandler.getInstance().deleteUser();
 
-            }
+                                        }
 
-        }
+                                    }
 
         );
 
