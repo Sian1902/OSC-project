@@ -397,6 +397,13 @@ public class Main extends Application {
                     ,generalOptions.passwordEdit.getText()).equals("all good")){
                 passenger.setEmail(generalOptions.mailEdit.getText());
                 passenger.setPassword(generalOptions.passwordEdit.getText());
+                generalOptions.nameEdit.setEditable(false);
+                generalOptions.mailEdit.setEditable(false);
+                generalOptions.passwordEdit.setEditable(false);
+                generalOptions.cityEdit.setEditable(false);
+                generalOptions.cityEdit.disableProperty().setValue(true);
+                generalOptions.paymentMethodEdit.disableProperty().setValue(true);
+                generalOptions.saveEdit.disableProperty().setValue(true);
             }
             else{
                 generalOptions.savingStatus.setText(checkRegex(generalOptions.numberEdit.getText(),generalOptions.mailEdit.getText()
@@ -408,13 +415,7 @@ public class Main extends Application {
             if(!(flag[0]&&flag[1])){
                 generalOptions.savingStatus.setVisible(true);
             }
-            generalOptions.nameEdit.setEditable(false);
-            generalOptions.mailEdit.setEditable(false);
-            generalOptions.passwordEdit.setEditable(false);
-            generalOptions.cityEdit.setEditable(false);
-            generalOptions.cityEdit.disableProperty().setValue(true);
-            generalOptions.paymentMethodEdit.disableProperty().setValue(true);
-            generalOptions.saveEdit.disableProperty().setValue(true);
+
         });
     }
     private void showWarning(){
