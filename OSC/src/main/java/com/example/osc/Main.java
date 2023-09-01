@@ -33,11 +33,7 @@ public class Main extends Application {
     Pane splashPane,uber;
     private Scene uberScene;
     Passenger passenger;
-
-    public Passenger getPassenger() {
-        return passenger;
-    }
-
+    private boolean flag[];
     @Override
     public void start(Stage uberStage){
 
@@ -106,15 +102,15 @@ public class Main extends Application {
         uberStage.setScene(splashScene);
         uberStage.show();
         uberStage.setOnCloseRequest(event -> {
-// Close the stage.
+            // Close the stage.
             Platform.exit();
         });
 
     }
     void showPane(boolean showStart,boolean showLogIn,boolean showSignUp,boolean showRideRequest) {
         startPage.startPane.setVisible(showStart);
-        logReg. logInPane.setVisible(showLogIn);
-        logReg. signUpPane.setVisible(showSignUp);
+        logReg.logInPane.setVisible(showLogIn);
+        logReg.signUpPane.setVisible(showSignUp);
         rideReguest.ridePane.setVisible(showRideRequest);
 
         logReg.ifPhrase.setLayoutY(420);
@@ -123,6 +119,7 @@ public class Main extends Application {
         logReg.enterDataReg.setVisible(false);
         rideReguest.enterDataRide.setVisible(false);
         rideReguest.list.setVisible(false);
+        generalOptions.savingStatus.setVisible(false);
 
         startPage.pickUpLoc.clear();
         startPage.destination.clear();
@@ -143,8 +140,8 @@ public class Main extends Application {
         generalOptions.numberEdit.setEditable(false);
         generalOptions.passwordEdit.setEditable(false);
         generalOptions.cityEdit.setEditable(false);
+        generalOptions.cityEdit.disableProperty().setValue(true);
         generalOptions.paymentMethodEdit.disableProperty().setValue(true);
-        generalOptions.saveEdit.disableProperty().setValue(false);
 
         uberLabel.setStyle("-fx-background-color: black;" +
                 "-fx-text-fill: white; " +
@@ -181,6 +178,8 @@ public class Main extends Application {
             ft.setToValue(0.0);
 
             if (logReg.phoneNumberLog.getText().isEmpty() || logReg.passwordLog.getText().isEmpty()) {
+                logReg.enterDataLog.setLayoutX(630);
+
                 logReg.enterDataLog.setText("Please fill in all required data");
                 showWarning();
                 ft.play();
@@ -188,6 +187,7 @@ public class Main extends Application {
 
             }
             else if(!LoginHandler.getInstance().login(logReg.phoneNumberLog.getText(),logReg.passwordLog.getText())){
+                logReg.enterDataLog.setLayoutX(603);
                 logReg.enterDataLog.setText("Incorrect Phone number or password");
                 showWarning();
                 ft.play();
@@ -195,20 +195,16 @@ public class Main extends Application {
             else {
                 LoginHandler.getInstance().login(logReg.phoneNumberLog.getText(),logReg.passwordLog.getText());
                 showPane(false, false, false, true);
-
                 // Adds username to profile button in the navbar
                 rideReguest.userDropList.setText(LoginHandler.getInstance().getPassenger().getName());
-
                 uberLabel.setStyle("-fx-background-color: white;" +
                         "-fx-border-color: transparent transparent #e2e2e2 transparent; " +
                         "-fx-text-fill: Black; " +
                         "-fx-border-width: 3; " +
                         "-fx-font-size: 40px;");
                 passenger=LoginHandler.getInstance().getPassenger();
-                initialize();
             }
-
-
+            initialize();
 
         });
         logReg.registerButton.setOnAction(event->{
@@ -262,7 +258,7 @@ public class Main extends Application {
                         "-fx-border-width: 3; " +
                         "-fx-font-size: 40px;");
                 passenger=LoginHandler.getInstance().getPassenger();
-//                initialize();
+                initialize();
             }
         });
     }
@@ -288,7 +284,10 @@ public class Main extends Application {
                 }
                 else
                 {
-                    rideReguest.openRideDetailsWindow(ride);
+                    if(rideReguest.rideType.getValue().toLowerCase().equals("scooter"))
+                        rideReguest.openRideDetailsWindow(ride,0);
+                    else
+                        rideReguest.openRideDetailsWindow(ride,1);
                 }
 
             }
@@ -303,7 +302,8 @@ public class Main extends Application {
         rideReguest.button1.setOnAction(event->{
             showPane(false,false,false,false);
             showPane2(true,false,false,false);
-
+            generalOptions.labelTrip.clear();
+            generalOptions.tripsLabels(passenger.displayPastRides());
         });
         rideReguest.button2.setOnAction(event->{
             showPane(false,false,false,false);
@@ -329,6 +329,8 @@ public class Main extends Application {
         generalOptions.myTrips.setOnAction(event->{
             showPane(false,false,false,false);
             showPane2(true,false,false,false);
+            generalOptions.labelTrip.clear();
+            generalOptions.tripsLabels(passenger.displayPastRides());
         });
         generalOptions.manageAccount.setOnAction(event->{
             showPane(false,false,false,false);
@@ -352,6 +354,8 @@ public class Main extends Application {
         generalOptions.myTrips2.setOnAction(event->{
             showPane(false,false,false,false);
             showPane2(true,false,false,false);
+            generalOptions.labelTrip.clear();
+            generalOptions.tripsLabels(passenger.displayPastRides());
         });
         generalOptions.manageAccount2.setOnAction(event->{
             showPane(false,false,false,false);
@@ -375,6 +379,8 @@ public class Main extends Application {
         generalOptions.myTrips3.setOnAction(event->{
             showPane(false,false,false,false);
             showPane2(true,false,false,false);
+            generalOptions.labelTrip.clear();
+            generalOptions.tripsLabels(passenger.displayPastRides());
         });
         generalOptions.manageAccount3.setOnAction(event->{
             showPane(false,false,false,false);
@@ -389,7 +395,6 @@ public class Main extends Application {
     }
     private void generalOptionsConnection(){
 
-
         generalOptions.logOut.setOnAction(event->{
             showPane(true,false,false,false);
             showPane2(false,false,false,false);
@@ -403,26 +408,25 @@ public class Main extends Application {
             showPane2(false,false,false,false);
         });
         generalOptions.sendFeedback.setOnAction(event->{
-            // Take Text
-            // textarea named "feedbackText"
             SupportTickets supportTicket=new SupportTickets(generalOptions.feedbackText.getText());
-
+            generalOptions.feedbackText.clear();
         });
         generalOptions.editData.setOnAction(event->{
-            generalOptions.nameEdit.setEditable(true);
-            generalOptions.mailEdit.setEditable(true);
-           // generalOptions.numberEdit.setEditable(true);
-            generalOptions.passwordEdit.setEditable(true);
-            generalOptions.cityEdit.setEditable(true);
-            generalOptions.paymentMethodEdit.disableProperty().setValue(false);
-            generalOptions.saveEdit.disableProperty().setValue(false);
+            generalOptions.openEnteringPasswordWindow();
         });
+        boolean[] flag = new boolean[2];
         generalOptions.saveEdit.setOnAction(event->{
+
             if(generalOptions.nameEdit.getText().isEmpty()){
                 generalOptions.nameEdit.setText(passenger.getName());
-            }
-            else {
+                flag[0]=false;
+            } else if (generalOptions.nameEdit.getText().contains(" ")) {
+                generalOptions.savingStatus.setText("Name shouldn't contain spaces!");
+                generalOptions.savingStatus.setVisible(true);
+                flag[0]=false;
+            } else {
                 passenger.setName(generalOptions.nameEdit.getText());
+                flag[0]=true;
             }
             passenger.setCity(generalOptions.cityEdit.getValue().toLowerCase());
             if(generalOptions.paymentMethodEdit.getValue().equals("PayPal")){
@@ -435,17 +439,37 @@ public class Main extends Application {
                     ,generalOptions.passwordEdit.getText()).equals("all good")){
                 passenger.setEmail(generalOptions.mailEdit.getText());
                 passenger.setPassword(generalOptions.passwordEdit.getText());
+                flag[1]=true;
+                generalOptions.nameEdit.setEditable(false);
+                generalOptions.mailEdit.setEditable(false);
+                generalOptions.passwordEdit.setEditable(false);
+                generalOptions.cityEdit.setEditable(false);
+                generalOptions.cityEdit.disableProperty().setValue(true);
+                generalOptions.paymentMethodEdit.disableProperty().setValue(true);
+                generalOptions.saveEdit.disableProperty().setValue(true);
+
             }
             else{
-                //add label that displays the return value of checkregex function
+                generalOptions.savingStatus.setText(checkRegex(generalOptions.numberEdit.getText(),generalOptions.mailEdit.getText()
+                        ,generalOptions.passwordEdit.getText()));
+                generalOptions.savingStatus.setVisible(true);
+                flag[1]=false;
+
             }
-            generalOptions.nameEdit.setEditable(false);
-            generalOptions.mailEdit.setEditable(false);
-            // generalOptions.numberEdit.setEditable(true);
-            generalOptions.passwordEdit.setEditable(false);
-            generalOptions.cityEdit.setEditable(false);
-            generalOptions.paymentMethodEdit.disableProperty().setValue(true);
-            generalOptions.saveEdit.disableProperty().setValue(true);
+            if(flag[0]&&flag[1]){
+                generalOptions.savingStatus.setText("Data saved successfully");
+                generalOptions.savingStatus.setVisible(true);
+                generalOptions.nameEdit.setEditable(false);
+                generalOptions.mailEdit.setEditable(false);
+                generalOptions.passwordEdit.setEditable(false);
+                generalOptions.cityEdit.setEditable(false);
+                generalOptions.cityEdit.disableProperty().setValue(true);
+                generalOptions.paymentMethodEdit.disableProperty().setValue(true);
+                generalOptions.saveEdit.disableProperty().setValue(true);
+                // Adds username to profile button in the navbar
+                rideReguest.userDropList.setText(generalOptions.nameEdit.getText());
+            }
+
         });
     }
     private void showWarning(){
@@ -453,9 +477,6 @@ public class Main extends Application {
         logReg.signUpInLog.setLayoutY(420);
         logReg.enterDataLog.setVisible(true);
     }
-
-
-
     private String checkRegex(String phone,String mail,String password){
         Regex regex=new Regex();
         if(!regex.phoneRegex(phone)){
@@ -466,10 +487,8 @@ public class Main extends Application {
             return "Unrecognized mail format";
         }
         if(!regex.passwordRegex(password)){
-           return  "Weak password";
-
+            return  "Weak password";
         }
-
         return "all good";
 
     }
@@ -490,6 +509,7 @@ public class Main extends Application {
         {
             generalOptions.paymentMethodEdit.getSelectionModel().select("PayPal");
         }
+        generalOptions.tripsLabels(passenger.displayPastRides());
 
     }
     public static void main(String[] args) {

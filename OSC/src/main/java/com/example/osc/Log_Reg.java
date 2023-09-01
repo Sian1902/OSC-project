@@ -89,12 +89,12 @@ public class Log_Reg {
                     "-fx-border-color: transparent;");
         });
         continueButton.setOnMouseExited(event -> {
-            continueButton.setStyle("-fx-background-color: black;" +
-                    "-fx-font-size: 20px;" +
-                    "-fx-text-fill: white;" +
-                    "-fx-border-radius: 10px;"+
-                    "-fx-background-radius: 10px;" +
-                    "-fx-border-color: transparent;");
+                    continueButton.setStyle("-fx-background-color: black;" +
+                            "-fx-font-size: 20px;" +
+                            "-fx-text-fill: white;" +
+                            "-fx-border-radius: 10px;"+
+                            "-fx-background-radius: 10px;" +
+                            "-fx-border-color: transparent;");
                 }
         );
 

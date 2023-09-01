@@ -1,5 +1,6 @@
 package com.example.osc;
 
+import app.Ride;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -10,14 +11,20 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import login.LoginHandler;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 public class General_Options {
     private Label myTripLabel,noTripLabel,authorizedLabel,location,language,egypt,english,warningLabel,warningDescription;
-    Label enterPassword;
+    Label enterPassword,savingStatus,tripLabel;
     TextField nameEdit,mailEdit,numberEdit;
     TextArea feedbackText;
     PasswordField passwordEdit,currentPassword;
@@ -29,8 +36,12 @@ public class General_Options {
     private ImageView feedbackIconView,userView;
     ComboBox<String> paymentMethodEdit,cityEdit;
     Pane  myTripsPane,manageAccountPane,profileSettingsPane,feedbackPane,deleteWarningPane,enterPassPane;
+    VBox tripLabelContainer;
+    ScrollPane scrollPane;
     private Scene deleteWarningScene,enterPassScene;
     private Stage deleteWarningStage,enterPassStage;
+    List<Label>labelTrip;
+    int rideCounter;
     Pane getFeedbackPane(){
         feedbackIcon=new Image(getClass().getResourceAsStream("/media/feedbackicon.jpg"));
         feedbackIconView=new ImageView(feedbackIcon);
@@ -184,7 +195,20 @@ public class General_Options {
         myTripLabel.setStyle("-fx-background-color: transparent;"+
                 "-fx-font-size: 25px;" +
                 "-fx-font-weight: bold;");
-        if(true){
+
+        myTripsPane=new Pane();
+        myTripsPane.getChildren().addAll(rideNow,myTrips,manageAccount,profileSettings);
+        return myTripsPane;
+    }
+    public void tripsLabels(Queue<Ride>trip){
+        Queue<Ride>trips=new LinkedList<Ride>();
+        trips.addAll(trip);
+        labelTrip = new ArrayList<>();
+        scrollPane = new ScrollPane();
+        tripLabelContainer=new VBox();
+        rideCounter=trips.size();
+        if(rideCounter==0){
+            scrollPane.setVisible(false);
             noTripLabel=new Label();
             noTripLabel.setText("Looks like you haven't taken a trip yet.");
             noTripLabel.setLayoutX(380);
@@ -192,13 +216,41 @@ public class General_Options {
             noTripLabel.setStyle("-fx-background-color: transparent;"+
                     "-fx-font-size: 25px;" +
                     "-fx-font-weight: bold;");
+            myTripsPane.getChildren().add(noTripLabel);
         }
         else{
-            // Trips code Here
+            tripLabelContainer.setSpacing(10);
+            ScrollPane scrollPane = new ScrollPane();
+            scrollPane.setContent(tripLabelContainer);
+            scrollPane.setPrefWidth(1250);
+            scrollPane.setPrefHeight(610);
+            scrollPane.setLayoutX(280);
+            scrollPane.setLayoutY(180);
+            scrollPane.setStyle("-fx-base:white;-fx-background-color:white;");
+            scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+            scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+            for (int i = 0 ; i < rideCounter ; i++) {
+                tripLabel=new Label();
+                //tripLabel.setPrefHeight(50);
+                tripLabel.setWrapText(true);
+                tripLabel.setPadding(new Insets(0, 0, 0, 30));
+                tripLabel.setPrefWidth(600);
+                tripLabel.setStyle("-fx-background-color: #eeeeee;"+
+                        "-fx-font-size: 25px;" +
+                        "-fx-background-radius: 20px;" +
+                        "-fx-border-radius: 20px;");
+                tripLabel.setText("Start position: "+trips.peek().getStartPosition()+"\nDestination: "+trips.peek().getDistenation()+"\nPrice:"+trips.peek().getPrice()+" EGP");
+                labelTrip.add(tripLabel);
+                trips.remove();
+            }
+            for (Label label : labelTrip) {
+                tripLabelContainer.getChildren().add(label);
+            }
+            myTripsPane.getChildren().add(scrollPane);
         }
-        myTripsPane=new Pane();
-        myTripsPane.getChildren().addAll(rideNow,myTrips,manageAccount,profileSettings,myTripLabel,noTripLabel);
-        return myTripsPane;
+
+        myTripsPane.getChildren().add(myTripLabel);
     }
     Pane getManageAccountPane(){
 
@@ -425,11 +477,18 @@ public class General_Options {
                     "-fx-background-radius: 50px;" +
                     "-fx-font-size: 18px;");
         });
-
+        savingStatus=new Label();
+        savingStatus.setLayoutX(280);
+        savingStatus.setLayoutY(690);
+        savingStatus.setPrefHeight(55);
+        savingStatus.setPrefWidth(370);
+        savingStatus.setStyle("-fx-background-color: transparent;" +
+                "-fx-font-size: 20px;" +
+                "-fx-text-fill: red;");
 
         manageAccountPane=new Pane();
         manageAccountPane.getChildren().addAll(rideNow2,myTrips2,manageAccount2,profileSettings2,userView,nameEdit,
-                mailEdit,numberEdit,passwordEdit,paymentMethodEdit,cityEdit,editData,saveEdit);
+                mailEdit,numberEdit,passwordEdit,paymentMethodEdit,cityEdit,editData,saveEdit,savingStatus);
         return manageAccountPane;
     }
     Pane getProfileSettingsPane(){
@@ -633,10 +692,10 @@ public class General_Options {
         warningDescription=new Label();
         warningDescription.setText("You will not be able to recover your account.\n"+
                 "Are you sure you want to delete your account?");
-        warningDescription.setPadding(new Insets(0, 30, 0, 30));
+        warningDescription.setPadding(new Insets(0, 40, 0, 40));
         warningDescription.setWrapText(true);
         warningDescription.setPrefWidth(500);
-        warningDescription.setPrefHeight(300);
+        warningDescription.setPrefHeight(250);
         warningDescription.setLayoutX(0);
         warningDescription.setLayoutY(0);
         warningDescription.setStyle("-fx-font-size: 20px;");
@@ -652,7 +711,7 @@ public class General_Options {
         yesDeleteButton.setPrefWidth(180);
         yesDeleteButton.setPrefHeight(40);
         yesDeleteButton.setLayoutX(50);
-        yesDeleteButton.setLayoutY(230);
+        yesDeleteButton.setLayoutY(180);
         yesDeleteButton.setStyle("-fx-background-color: black;"+
                 "-fx-text-fill: white;"+
                 "-fx-font-size: 20px;"+
@@ -679,7 +738,7 @@ public class General_Options {
         cancelDeletion.setPrefWidth(180);
         cancelDeletion.setPrefHeight(40);
         cancelDeletion.setLayoutX(250);
-        cancelDeletion.setLayoutY(230);
+        cancelDeletion.setLayoutY(180);
         cancelDeletion.setStyle("-fx-background-color: black;"+
                 "-fx-text-fill: white;"+
                 "-fx-font-size: 20px;"+
@@ -734,15 +793,15 @@ public class General_Options {
         yesDeleteButton.setOnAction(new EventHandler<ActionEvent>() {
 
 
-            @Override
-            public void handle(ActionEvent event) {
-                deleteWarningStage.close();
-                yesDeleteCheckbox.setSelected(true);
-                LoginHandler.getInstance().deleteUser();
+                                        @Override
+                                        public void handle(ActionEvent event) {
+                                            deleteWarningStage.close();
+                                            yesDeleteCheckbox.setSelected(true);
+                                            LoginHandler.getInstance().deleteUser();
 
-            }
+                                        }
 
-        }
+                                    }
 
         );
 
@@ -883,14 +942,20 @@ public class General_Options {
         editContinue.setOnAction(event->{
             if(currentPassword.getText().isEmpty()){
                 enterPassword.setStyle("-fx-font-size: 30px;-fx-text-fill: red;");
-            }else{
+                enterPassword.setText("Enter your password!");
+                enterPassword.setPadding(new Insets(0, 0, 150, 90));
+            } else if (!LoginHandler.getInstance().getPassenger().getPassword().equals(currentPassword.getText())) {
+                enterPassword.setText("Wrong Password!");
+                enterPassword.setPadding(new Insets(0, 0, 150, 130));
+                enterPassword.setStyle("-fx-font-size: 30px;-fx-text-fill: red;");
+            } else{
                 nameEdit.setEditable(true);
                 mailEdit.setEditable(true);
-                numberEdit.setEditable(true);
                 passwordEdit.setEditable(true);
                 paymentMethodEdit.disableProperty().setValue(false);
                 cityEdit.disableProperty().setValue(false);
                 saveEdit.disableProperty().setValue(false);
+                enterPassStage.close();
                 // code
             }
         });
