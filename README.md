@@ -25,7 +25,7 @@ Here are some screenshots of our Uber Clone JavaFX application:
 ## Demo
 
 Check out our demo video to see the Uber Clone JavaFX application in action:
-<video src="WhatsApp%20Video%202023-09-02%20at%2004.22.13.mp4" controls title="DEMO VIDEO"></video>
+<video src="https://drive.google.com/file/d/1Cz0_KrLR6e_FQEZKBFQw4MVk8cKJoQbk/view?usp=drive_link" controls title="DEMO VIDEO"></video>
 
 
 ## Getting Started
