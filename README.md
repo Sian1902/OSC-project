@@ -19,16 +19,14 @@ Here are the key features of our Uber Clone JavaFX application:
 ## Screenshots
 
 Here are some screenshots of our Uber Clone JavaFX application:
-
-![App Screenshot 1](https://drive.google.com/file/d/1GIWMbJbRAXi94WaONYyHtELHSnpX9-Wc/view?usp=drive_link)
-![App Screenshot 2](https://drive.google.com/file/d/1yq8zZCxYOwcitVPZlTKQvNaGwb6rJHbq/view?usp=drive_link)
-![App Screenshot 3](https://drive.google.com/file/d/16LAtRNkaBdmmuWNStgYdtA7Bh0XMJi51/view?usp=drive_link)
-
+![App Screenshot 1](<WhatsApp Image 2023-09-02 at 04.40.35.jpg>)
+![App Screenshot 2](<WhatsApp Image 2023-09-02 at 04.40.41.jpg>) 
+![App Screenshot 3](<WhatsApp Image 2023-09-02 at 04.40.47.jpg>)
 ## Demo
 
 Check out our demo video to see the Uber Clone JavaFX application in action:
+<video src="WhatsApp%20Video%202023-09-02%20at%2004.22.13.mp4" controls title="DEMO VIDEO"></video>
 
-[Demo Video](https://drive.google.com/file/d/1Cz0_KrLR6e_FQEZKBFQw4MVk8cKJoQbk/view?usp=drive_link)
 
 ## Getting Started
 
