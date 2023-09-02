@@ -1,5 +1,5 @@
 
-https://github.com/Sian1902/OSC-project/assets/96428026/a9035d95-a977-4bbd-9b78-59d847d37a82
+
 # Uber Clone JavaFX
 
 Welcome to the Uber Clone JavaFX project! This project was created as part of our university summer training program. It's a small-scale Uber clone made for trying new design pattern concepts we have just learnt
