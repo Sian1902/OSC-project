@@ -28,7 +28,9 @@ Here are some screenshots of our Uber Clone JavaFX application:
 
 Check out our demo video to see the Uber Clone JavaFX application in action:
 
-https://github.com/Sian1902/OSC-project/assets/96428026/06f61588-433f-42b9-bd6f-b10133211ba6
+https://github.com/Sian1902/OSC-project/assets/96428026/cb9c09be-f1b1-408b-b324-800438c875e7
+
+
 
 
 
