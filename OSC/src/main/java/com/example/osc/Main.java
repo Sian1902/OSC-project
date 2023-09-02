@@ -493,6 +493,7 @@ public class Main extends Application {
 
     }
     private void initialize(){
+        rideReguest.userDropList.setText(LoginHandler.getInstance().getPassenger().getName());
         generalOptions.nameEdit.setText(passenger.getName());
         generalOptions.mailEdit.setText(passenger.getEmail());
         generalOptions.numberEdit.setText(passenger.getNumber());
